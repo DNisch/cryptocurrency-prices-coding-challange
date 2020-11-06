@@ -1,0 +1,21 @@
+.app-header {
+  background-color: #282c34;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding: 12px;
+}
+
+.button {
+  background-color: #484c54;
+  color: white;
+  margin-left: 12px;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.container {
+  padding: 24px;
+}

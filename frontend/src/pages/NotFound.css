@@ -1,0 +1,18 @@
+.center {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.huge-icon {
+  font-size: 12em;
+}
+
+.center-text {
+  text-align: center;
+}
