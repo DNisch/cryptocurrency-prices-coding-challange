@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv';
 import express from 'express';
 import { CryptocurrencyIds } from './CryptocurrencyIds';
 import CoinGeckoTracker from './CoinGeckoTracker';
@@ -5,8 +6,10 @@ import convertHistory from './ConvertHistory';
 import ConvertedHistory from './ConvertedHistory';
 import StoreEntry from './StoreEntry';
 
+dotenv.config();
+
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 
 const coinGeckoTracker: CoinGeckoTracker = new CoinGeckoTracker();
 coinGeckoTracker.run();
