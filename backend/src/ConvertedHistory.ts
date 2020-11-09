@@ -1,3 +1,4 @@
+// very much OOP-style, a typescript interface might be more versatile in some cases
 export default class ConvertedHistory {
   private latest: number;
   private average: number;

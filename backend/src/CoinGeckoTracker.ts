@@ -4,6 +4,10 @@ import StoreEntry from './StoreEntry';
 
 const MINUTE = 60000;
 
+const coingecko = axios.create({
+  baseURL: 'https://api.coingecko.com/api/v3/',
+});
+
 export default class CoinGeckoTracker {
   private store = new Map<CryptocurrencyIds, StoreEntry>();
 
@@ -17,6 +21,9 @@ export default class CoinGeckoTracker {
 
   public run () {
     this.fetchAll();
+    setInterval(() => {
+      this.fetchAll();
+    }, MINUTE)
   }
 
   public getHistory (currency: CryptocurrencyIds): StoreEntry {
@@ -24,21 +31,23 @@ export default class CoinGeckoTracker {
   }
 
   private fetchAll () {
+    // the API would allow fetching multiple coins at once
     this.fetchCoinGecko(CryptocurrencyIds.BTC);
     this.fetchCoinGecko(CryptocurrencyIds.ETH);
     this.fetchCoinGecko(CryptocurrencyIds.TXL);
-    setTimeout(() => {
-      this.fetchAll();
-    }, MINUTE)
   }
 
   private async fetchCoinGecko (cryptocurrency: CryptocurrencyIds) {
-    axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptocurrency}&vs_currencies=EUR`)
-      .then(response => {
-        this.store.get(cryptocurrency).addEntry(response.data[cryptocurrency].eur)
-      })
-      .catch(error => {
-        console.log(error);
+    try {
+      const response = await coingecko.get('simple/price', {
+        params: {
+          ids: cryptocurrency,
+          vs_currencies: 'EUR',
+        }
       });
+      this.store.get(cryptocurrency).addEntry(response.data[cryptocurrency].eur);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

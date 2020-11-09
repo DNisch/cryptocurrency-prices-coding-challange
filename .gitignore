@@ -1,0 +1,4 @@
+# always add a .gitignore containing at least the node_modules directories
+.idea
+node_modules
+/backend/dist/
