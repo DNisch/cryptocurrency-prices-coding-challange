@@ -16,6 +16,8 @@ coinGeckoTracker.run();
 
 app.get("/price/:currency", (req, res) => {
   console.log(req.params.currency);
+  // if the resource does not exist a 404 response would be the right call to make,
+  // not returning the history for tixl as a default
   const currency: CryptocurrencyIds = getCrytocurrencyIdFromString(req.params.currency);
   const minutes: number = !!req.query.minutes ? Number(req.query.minutes) : 60;
   const originalHistory: StoreEntry = coinGeckoTracker.getHistory(currency);

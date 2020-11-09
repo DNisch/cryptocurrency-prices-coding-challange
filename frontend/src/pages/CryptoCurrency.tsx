@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes, { InferProps } from "prop-types";
 import axios from 'axios';
 
 const MINUTE = 60000;
@@ -15,7 +14,13 @@ const loadData = (currency: string, setData: React.Dispatch<React.SetStateAction
     });
 };
 
-export default function CryptoCurrency ({ currency }: InferProps<typeof CryptoCurrency.propTypes>) {
+// more typescript idiomatic alternative
+interface CryptoCurrencyProps {
+  currency: string;
+}
+
+export default function CryptoCurrency ({ currency }: CryptoCurrencyProps) {
+  // extracting a custom hook like "useCurrency" would have been more reusable
   const [data, setData] = React.useState({
     latest: 0,
     average: 0,
@@ -39,7 +44,3 @@ export default function CryptoCurrency ({ currency }: InferProps<typeof CryptoCu
     </div>
   )
 }
-
-CryptoCurrency.propTypes = {
-  currency: PropTypes.string.isRequired
-};
